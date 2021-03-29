@@ -1,3 +1,4 @@
+import json
 from aiohttp import web
 import socketio
 
@@ -9,22 +10,22 @@ sio.attach(app)
 
 # Stores the products to be compared
 products = (
-    {'id': 'A', 'title': 'Producto A', 'description': 'Descripción del Producto A', 'img': 'ImageURL'},
-    {'id': 'B', 'title': 'Producto B', 'description': 'Descripción del Producto B', 'img': 'ImageURL'}
+    {'id': 'A', 'title': 'Producto A', 'description': 'Descripcion del Producto A', 'img': 'ImageURL'},
+    {'id': 'B', 'title': 'Producto B', 'description': 'Descripcion del Producto B', 'img': 'ImageURL'}
 )
 
 # Stores the user votes
-votes = {
-    'User1': {'product': 'A', 'comment': 'Voto por A'},
-    'User2': {'product': 'A', 'comment': 'Aguante A'},
-    'User3': {'product': 'B', 'comment': 'Voto por B'}
-}
+votes = (
+    {'user': 'User1', 'product': 'A', 'comment': 'Voto por A'},
+    {'user': 'User2', 'product': 'A', 'comment': 'Aguante A'},
+    {'user': 'User3', 'product': 'B', 'comment': 'Voto por B'}
+)
 
 
 # Websockets events handlers
 @sio.event
 async def connect(sid, environ, auth):
-    await sio.emit('state', {'products': products, 'votes': votes})
+    await sio.emit('state', json.dumps({'products': products, 'votes': votes}))
 
 @sio.event
 def disconnect(sid):
@@ -34,7 +35,7 @@ def disconnect(sid):
 async def vote(sid, data):
     global votes
     if votes.get(data['user']):
-        votes = dict(filter(lambda x: x[0] != 'User1', votes.items()))
+        votes = list(filter(lambda x: x['user'] != data['user'], votes))
         votes[data['user']] = {'product': data['product'], 'comment': data['comment']}
     await sio.emit('vote', {'votes': votes})
 
