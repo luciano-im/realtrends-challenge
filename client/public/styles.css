@@ -100,3 +100,10 @@ header .logo {
 .vote-form .error.show {
   display: block;
 }
+
+.percentage p {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 30px;
+  font-weight: 700;
+  color: #999;
+}
