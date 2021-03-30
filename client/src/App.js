@@ -13,6 +13,7 @@ function App() {
     product: '',
     comment: '',
   });
+  const [errors, setErrors] = useState(false);
 
   useEffect(() => {
     socket.on('state', (data) => {
@@ -38,13 +39,19 @@ function App() {
 
   const handleVote = (event) => {
     event.preventDefault();
-    socket.emit('vote', {
-      // TODO Set user
-      user: 'User1',
-      product: formData.product,
-      comment: formData.comment,
-    });
-    // setFormData({ product: '', comment: '' });
+    if (formData.product === '' || formData.comment === '') {
+      setErrors(true);
+    } else {
+      socket.emit('vote', {
+        // TODO Set user
+        user: 'User1',
+        product: formData.product,
+        comment: formData.comment,
+      });
+      setErrors(false);
+      setFormData({ product: '', comment: '' });
+      document.getElementById('vote-form').reset();
+    }
   };
 
   return (
@@ -81,8 +88,8 @@ function App() {
         })}
       </section>
       <section className="vote-form">
-        <form method="">
-          <div>
+        <form method="" id="vote-form">
+          <div className="product">
             {products.map((product) => {
               return (
                 <label key={product.id}>
@@ -98,20 +105,20 @@ function App() {
               );
             })}
           </div>
-          <div>
-            <label>
-              Comentario
-              <input
-                type="text"
-                name="comment"
-                onChange={handleFormData}
-                placeholder="Comentario"
-              ></input>
-            </label>
+          <div className="comment">
+            <input
+              type="text"
+              name="comment"
+              onChange={handleFormData}
+              placeholder="Comentario"
+            ></input>
           </div>
-          <div>
+          <div className="submit">
             <input type="submit" value="Votar!" onClick={handleVote}></input>
           </div>
+          <p className={`error ${errors ? 'show' : ''}`}>
+            Ninguno de los campos puede estar vacío
+          </p>
         </form>
       </section>
     </div>

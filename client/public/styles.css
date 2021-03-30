@@ -23,6 +23,7 @@ header .logo {
   height: 150px;
   overflow-y: scroll;
   padding: 10px;
+  border-radius: 2px;
 }
 
 .product .votes ul {
@@ -41,4 +42,61 @@ header .logo {
 .product .votes ul li .user {
   color: #6cceb5;
   font-weight: bold;
+}
+
+.vote-form {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+.vote-form form {
+  max-width: 300px;
+  padding: 16px 48px;
+  width: 100%;
+  border-top: 1px solid #6cceb5;
+  border-bottom: 1px solid #6cceb5;
+}
+
+.vote-form div {
+  padding: 6px;
+}
+
+.vote-form input, label {
+  border-radius: 2px;
+  font-size: 14px;
+}
+
+.vote-form .product label:first-child {
+  margin-right: 24px;
+}
+
+.vote-form .product input {
+  margin-right: 8px;
+}
+
+.vote-form .comment input {
+  display: block;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid grey;
+}
+
+.vote-form .submit input {
+  border: 0;
+  background-color: #6cceb5;
+  padding: 8px 12px;
+  letter-spacing: .5px;
+}
+
+.vote-form .error {
+  font-size: 12px;
+  color: red;
+  display: none;
+  margin: 0;
+  margin-top: 12px;
+}
+
+.vote-form .error.show {
+  display: block;
 }
