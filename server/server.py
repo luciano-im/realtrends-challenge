@@ -34,10 +34,9 @@ def disconnect(sid):
 @sio.event
 async def vote(sid, data):
     global votes
-    if votes.get(data['user']):
-        votes = list(filter(lambda x: x['user'] != data['user'], votes))
-        votes[data['user']] = {'product': data['product'], 'comment': data['comment']}
-    await sio.emit('vote', {'votes': votes})
+    votes = list(filter(lambda x: x['user'] != data['user'], votes))
+    votes.append({'user': data['user'], 'product': data['product'], 'comment': data['comment']})
+    await sio.emit('vote', json.dumps({'votes': votes}))
 
 
 
