@@ -15,12 +15,7 @@ products = (
 )
 
 # Stores the user votes
-votes = (
-    {'user': 'User1', 'product': 'A', 'comment': 'Voto por A'},
-    {'user': 'User2', 'product': 'A', 'comment': 'Aguante A'},
-    {'user': 'User3', 'product': 'B', 'comment': 'Voto por B'}
-)
-
+votes = ()
 
 # Websockets events handlers
 @sio.event
@@ -37,7 +32,6 @@ async def vote(sid, data):
     votes = list(filter(lambda x: x['user'] != data['user'], votes))
     votes.append({'user': data['user'], 'product': data['product'], 'comment': data['comment']})
     await sio.emit('vote', json.dumps({'votes': votes}))
-
 
 
 if __name__ == '__main__':

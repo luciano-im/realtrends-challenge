@@ -11,10 +11,9 @@ function Products(props) {
         const filteredVotes = votes.filter((vote) => {
           return vote.product === product.id;
         });
-        const percentage = (
-          (filteredVotes.length / votes.length) *
-          100
-        ).toFixed(2);
+        const percentage = isNaN(filteredVotes.length / votes.length)
+          ? 0
+          : ((filteredVotes.length / votes.length) * 100).toFixed(2);
 
         return (
           <article key={product.id} className="product">
