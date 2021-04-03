@@ -51,23 +51,28 @@ header .logo {
   font-weight: bold;
 }
 
-.user-form {
+.user-form,
+.search-products {
   margin-top: 100px;
 }
 
-.user-form form div {
+.user-form form div,
+.modal form div {
   display: flex;
   flex-direction: row;
   align-content: space-around;
+  justify-content: center;
 }
 
-.user-form input[type="text"] {
+.user-form input[type="text"],
+.modal input[type="text"] {
   border-radius: 2px 0 0 2px;
   width: 180px;
   padding: 8px;
 }
 
-.user-form input[type="submit"] {
+.user-form input[type="submit"],
+.modal input[type="submit"] {
   border-radius: 0 2px 2px 0;
 }
 
@@ -112,22 +117,37 @@ header .logo {
 }
 
 .vote-form input,
-.user-form input {
+.user-form input,
+.modal input,
+.search-products,
+.modal .products .product .select-product {
   border: 1px solid #4194d8;
   border-radius: 2px;
   font-size: 14px;
 }
 
 .vote-form .submit input,
-.user-form input[type="submit"] {
+.user-form input[type="submit"],
+.modal input[type="submit"],
+.search-products,
+.modal .products .product .select-product {
   color: white;
   background-color: #4194d8;
   padding: 8px 12px;
   letter-spacing: .5px;
 }
 
+.vote-form .submit input:hover,
+.user-form input[type="submit"]:hover,
+.modal input[type="submit"]:hover,
+.search-products:hover,
+.modal .products .product .select-product:hover {
+  cursor: pointer;
+}
+
 .vote-form .error,
-.user-form .error {
+.user-form .error,
+.modal .error {
   font-size: 12px;
   color: red;
   display: none;
@@ -136,7 +156,8 @@ header .logo {
 }
 
 .vote-form .error.show,
-.user-form .error.show {
+.user-form .error.show,
+.modal .error.show {
   display: block;
 }
 
@@ -191,4 +212,108 @@ footer span {
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  top: 24px;
+  bottom: 100px;
+  left: 100px;
+  right: 100px;
+  padding: 24px;
+  background: rgba(113, 216, 191, .9);
+  border-radius: 2px;
+}
+
+.modal.show {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.modal form {
+  width: 100%;
+}
+
+.modal .products {
+  overflow-y: scroll;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.modal .products ul {
+  width: 100%;
+  list-style: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.modal .products .product {
+  margin: 10px;
+  padding: 5px 10px;
+  display: flex;
+  background-color: white;
+  border-radius: 2px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal .products .product .product-data {
+  display: flex;
+  align-items: center;
+}
+
+.modal .products .product .thumbnail {
+  margin-right: 24px;
+}
+
+.modal .products .product .thumbnail img {
+  border-radius: 2px;
+  width: 90px;
+}
+
+.modal .products .product .price,
+.modal .products .product .location {
+  color: #555555;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin: 3px 0;
+}
+
+.modal .products .product .price img {
+  width: 20px;
+}
+
+.modal .products .product .location img {
+  width: 18px;
+}
+
+.modal .products .product .price img,
+.modal .products .product .location img {
+  margin-right: 12px;
+}
+
+.modal .products .product .title {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.modal .products .product p {
+  margin: 0;
+} 
+
+.modal .products .product .select-product {
+  background-color: #71d8bf;
+  border: 1px solid #71d8bf;
+  margin-right: 24px;
+}
+
+.modal .products .product .select-product.selected {
+  background-color: #999;
+  border: 1px solid #999;
+  cursor: not-allowed;
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Votes from './votes';
-import productImg from '../product.jpg';
 
 function Products(props) {
   const { products, votes } = props;
@@ -19,7 +18,7 @@ function Products(props) {
           <article key={product.id} className="product">
             <h1 className="title">{product.title}</h1>
             <p className="description">{product.description}</p>
-            <img src={productImg} alt={product.title} width="300"></img>
+            <img src={product.img} alt={product.title} width="300"></img>
             <Votes votes={filteredVotes} />
             <div className="percentage">
               <p>{percentage}%</p>

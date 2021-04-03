@@ -10,8 +10,8 @@ sio.attach(app)
 
 # Stores the products to be compared
 products = (
-    {'id': 'A', 'title': 'Producto A', 'description': 'Descripcion del Producto A', 'img': 'ImageURL'},
-    {'id': 'B', 'title': 'Producto B', 'description': 'Descripcion del Producto B', 'img': 'ImageURL'}
+    # {'id': 'A', 'title': 'Producto A', 'description': 'Descripcion del Producto A', 'img': 'ImageURL'},
+    # {'id': 'B', 'title': 'Producto B', 'description': 'Descripcion del Producto B', 'img': 'ImageURL'}
 )
 
 # Stores the user votes
