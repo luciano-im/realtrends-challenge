@@ -5,6 +5,7 @@ import Form from './components/vote-form';
 import UserForm from './components/user-form';
 import Modal from './components/modal';
 import Footer from './components/footer';
+import PollButtons from './components/poll-buttons';
 import logo from './logo.svg';
 
 const socket = io('http://127.0.0.1:8000');
@@ -15,6 +16,7 @@ function App() {
   const [user, setUser] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [showVoting, setShowVoting] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     socket.on('state', (data) => {
@@ -32,11 +34,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(products.length);
     if (products.length === 2) {
       setShowVoting(true);
     }
   }, [products]);
+
+  useEffect(() => {}, [paused]);
 
   const handleUser = (user) => {
     setUser(user);
@@ -54,13 +57,24 @@ function App() {
     setShowModal(true);
   };
 
+  const handlePause = (status) => {
+    setPaused(status);
+  };
+
+  const handleRestart = () => {
+    setProducts([]);
+    setVotes([]);
+    setShowVoting(false);
+    setPaused(false);
+  };
+
   const AppContent = () => {
     if (user.length > 0) {
       if (showVoting) {
         return (
           <>
             <Products products={products} votes={votes} />
-            <Form products={products} handleVote={handleVote} />
+            <Form products={products} handleVote={handleVote} paused={paused} />
           </>
         );
       } else {
@@ -81,9 +95,16 @@ function App() {
         <img src={logo} className="logo" alt="logo" />
         <p>Lets get this party started</p>
       </header>
+      <PollButtons
+        show={showVoting}
+        paused={paused}
+        onPause={handlePause}
+        onRestart={handleRestart}
+      />
       <AppContent />
       <Modal
         show={showModal}
+        products={products}
         setShowModal={setShowModal}
         setProducts={setProducts}
       />
@@ -94,6 +115,7 @@ function App() {
   );
 }
 
-//TODO Pausar, Reanudar y Reiniciar votación
+//TODO Imagen del producto
+//TODO Formulario de votacion
 
 export default App;

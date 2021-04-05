@@ -18,7 +18,11 @@ function Products(props) {
           <article key={product.id} className="product">
             <h1 className="title">{product.title}</h1>
             <p className="description">{product.description}</p>
-            <img src={product.img} alt={product.title} width="300"></img>
+            <img
+              src={product.img}
+              alt={product.title}
+              className="product-img"
+            ></img>
             <Votes votes={filteredVotes} />
             <div className="percentage">
               <p>{percentage}%</p>

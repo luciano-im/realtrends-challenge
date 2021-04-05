@@ -13,14 +13,51 @@ header .logo {
   width: 250px;
 }
 
+.poll-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.poll-buttons button {
+  background: #71d8bf;
+  color: white;
+  /* background-color: #4194d8; */
+  padding: 8px 12px;
+  letter-spacing: .5px;
+  border: 1px solid #71d8bf;
+  border-radius: 2px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+}
+
+.poll-buttons button:nth-child(2) {
+  margin: 0 12px;
+}
+
+.poll-buttons button img {
+  height: 15px;
+  margin-right: 12px;
+}
+
 .products {
   margin-top: 36px;
   display: flex;
   justify-content: center;
 }
 
+.products .product {
+  width: 300px;
+}
+
 .products .product:first-child {
   margin-right: 48px;
+}
+
+.products .product .product-img {
+  max-width: 300px;
+  max-height: 200px;
 }
 
 .product .votes {
@@ -81,7 +118,7 @@ header .logo {
 }
 
 .vote-form form {
-  max-width: 300px;
+  max-width: 500px;
   padding: 16px 48px;
   width: 100%;
   border-top: 1px solid #999;
@@ -92,9 +129,14 @@ header .logo {
   padding: 6px;
 }
 
-.vote-form .product label:first-child {
-  margin-right: 24px;
+.vote-form .product label {
+  display: block;
+  text-align: left;
 }
+
+/* .vote-form .product label:first-child {
+  margin-right: 24px;
+} */
 
 .vote-form .product input {
   margin-right: 8px;
@@ -259,6 +301,7 @@ footer span {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: auto;
 }
 
 .modal .products .product .product-data {

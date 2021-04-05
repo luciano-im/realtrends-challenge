@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function Form(props) {
-  const { products } = props;
+  const { products, handleVote, paused } = props;
 
   const [formData, setFormData] = useState({
     product: '',
@@ -18,10 +18,10 @@ function Form(props) {
 
   const processForm = (event) => {
     event.preventDefault();
-    if (formData.product === '' || formData.comment === '') {
+    if (formData.product === '' || formData.comment === '' || paused) {
       setErrors(true);
     } else {
-      props.handleVote(formData.product, formData.comment);
+      handleVote(formData.product, formData.comment);
       setErrors(false);
       document.getElementById('vote-form').reset();
     }
@@ -50,6 +50,7 @@ function Form(props) {
           <input
             type="text"
             name="comment"
+            value={formData.comment}
             onChange={handleFormData}
             placeholder="Comentario"
           ></input>
@@ -58,7 +59,9 @@ function Form(props) {
           <input type="submit" value="Votar!" onClick={processForm}></input>
         </div>
         <p className={`error ${errors ? 'show' : ''}`}>
-          Ninguno de los campos puede estar vacío
+          {paused
+            ? 'La votación ha sido pausada'
+            : 'Ninguno de los campos puede estar vacío'}
         </p>
       </form>
     </section>

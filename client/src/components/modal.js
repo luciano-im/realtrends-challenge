@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ModalProduct from './modal-product';
 
 function Modal(props) {
-  const { show, setProducts, setShowModal } = props;
+  const { show, products, setProducts, setShowModal } = props;
   const [search, setSearch] = useState('');
   const [meliProducts, setMeliProducts] = useState([]);
   const [errors, setErrors] = useState(false);
@@ -41,6 +41,12 @@ function Modal(props) {
     }
   }, [selectedProducts, setProducts, setShowModal]);
 
+  useEffect(() => {
+    setSelectedProducts([]);
+    setMeliProducts([]);
+    setSearch('');
+  }, [products]);
+
   return (
     <section className={`modal ${show ? 'show' : ''}`}>
       <form id="search-form">
@@ -49,6 +55,7 @@ function Modal(props) {
             type="text"
             name="search"
             onChange={handleFormData}
+            value={search}
             placeholder="Buscar productos..."
           ></input>
           <input type="submit" value="Buscar" onClick={processForm}></input>
