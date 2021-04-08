@@ -34,12 +34,17 @@ function App() {
   }, []);
 
   useEffect(() => {
+    socket.on('products', (data) => {
+      const parsedData = JSON.parse(data);
+      setProducts(Array.from(parsedData.products));
+    });
+  }, []);
+
+  useEffect(() => {
     if (products.length === 2) {
       setShowVoting(true);
     }
   }, [products]);
-
-  useEffect(() => {}, [paused]);
 
   const handleUser = (user) => {
     setUser(user);
@@ -50,6 +55,12 @@ function App() {
       user: user,
       product: product,
       comment: comment,
+    });
+  };
+
+  const handleSetProducts = (data) => {
+    socket.emit('product', {
+      data: [...data],
     });
   };
 
@@ -66,6 +77,9 @@ function App() {
     setVotes([]);
     setShowVoting(false);
     setPaused(false);
+    socket.emit('restart', {
+      restart: true,
+    });
   };
 
   const AppContent = () => {
@@ -73,6 +87,11 @@ function App() {
       if (showVoting) {
         return (
           <>
+            <PollButtons
+              paused={paused}
+              onPause={handlePause}
+              onRestart={handleRestart}
+            />
             <Products products={products} votes={votes} />
             <Form products={products} handleVote={handleVote} paused={paused} />
           </>
@@ -95,18 +114,12 @@ function App() {
         <img src={logo} className="logo" alt="logo" />
         <p>Lets get this party started</p>
       </header>
-      <PollButtons
-        show={showVoting}
-        paused={paused}
-        onPause={handlePause}
-        onRestart={handleRestart}
-      />
       <AppContent />
       <Modal
         show={showModal}
         products={products}
         setShowModal={setShowModal}
-        setProducts={setProducts}
+        setProducts={handleSetProducts}
       />
       <Footer
         sticky={user.length > 0 && products.length === 2 ? false : true}
@@ -114,8 +127,5 @@ function App() {
     </div>
   );
 }
-
-//TODO Imagen del producto
-//TODO Formulario de votacion
 
 export default App;

@@ -9,13 +9,10 @@ sio.attach(app)
 
 
 # Stores the products to be compared
-products = (
-    # {'id': 'A', 'title': 'Producto A', 'description': 'Descripcion del Producto A', 'img': 'ImageURL'},
-    # {'id': 'B', 'title': 'Producto B', 'description': 'Descripcion del Producto B', 'img': 'ImageURL'}
-)
+products = []
 
 # Stores the user votes
-votes = ()
+votes = []
 
 # Websockets events handlers
 @sio.event
@@ -32,6 +29,20 @@ async def vote(sid, data):
     votes = list(filter(lambda x: x['user'] != data['user'], votes))
     votes.append({'user': data['user'], 'product': data['product'], 'comment': data['comment']})
     await sio.emit('vote', json.dumps({'votes': votes}))
+
+@sio.event
+async def product(sid, data):
+    global products
+    for p in data['data']:
+        products.append({'id': p['id'], 'title': p['custom_title'], 'description': p['title'], 'img': p['img']})
+    await sio.emit('products', json.dumps({'products': products}))
+
+@sio.event
+async def restart(sid, data):
+    global products
+    global votes
+    votes = []
+    products = []
 
 
 if __name__ == '__main__':

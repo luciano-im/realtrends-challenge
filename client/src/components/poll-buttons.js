@@ -4,7 +4,7 @@ import pause from '../pause.svg';
 import stop from '../stop.svg';
 
 function PollButtons(props) {
-  const { show, paused, onPause, onRestart } = props;
+  const { paused, onPause, onRestart } = props;
 
   const handlePlayPause = () => {
     onPause(!paused);
@@ -15,7 +15,7 @@ function PollButtons(props) {
   };
 
   return (
-    <div className={`poll-buttons ${show ? 'show' : ''}`}>
+    <div className="poll-buttons">
       {paused ? (
         <button className="play-poll" onClick={handlePlayPause}>
           <img src={play} alt="Comenzar votación" /> Comenzar votación

@@ -31,6 +31,8 @@ function Modal(props) {
   };
 
   const handleSelectedProduct = (selected) => {
+    const product = selectedProducts.length === 0 ? 'Producto A' : 'Producto B';
+    selected['custom_title'] = product;
     setSelectedProducts([...selectedProducts, selected]);
   };
 
@@ -39,7 +41,7 @@ function Modal(props) {
       setProducts([...selectedProducts]);
       setShowModal(false);
     }
-  }, [selectedProducts, setProducts, setShowModal]);
+  }, [selectedProducts, setShowModal]);
 
   useEffect(() => {
     setSelectedProducts([]);
