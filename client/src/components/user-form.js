@@ -8,6 +8,7 @@ function UserForm(props) {
     setUser(event.target.value);
   };
 
+  // Process form submit and displys errors where applicable
   const processForm = (event) => {
     event.preventDefault();
     if (user === '' || user.length > 20) {
@@ -25,11 +26,17 @@ function UserForm(props) {
         <div>
           <input
             type="text"
+            className="input-text"
             name="user"
             onChange={handleFormData}
             placeholder="Usuario"
           ></input>
-          <input type="submit" value="Ingresar" onClick={processForm}></input>
+          <input
+            type="submit"
+            className="button blue-button submit"
+            value="Ingresar"
+            onClick={processForm}
+          ></input>
         </div>
         <p className={`error ${errors ? 'show' : ''}`}>
           {user.length > 20

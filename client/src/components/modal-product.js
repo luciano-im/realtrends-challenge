@@ -35,7 +35,9 @@ function ModalProduct(props) {
         </div>
       </div>
       <button
-        className={`select-product ${selected ? 'selected' : ''}`}
+        className={`select-product button green-button ${
+          selected ? 'selected' : ''
+        }`}
         disabled={selected ? true : false}
         onClick={handleSelectProduct}
       >

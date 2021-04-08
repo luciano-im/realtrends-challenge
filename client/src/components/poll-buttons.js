@@ -17,15 +17,21 @@ function PollButtons(props) {
   return (
     <div className="poll-buttons">
       {paused ? (
-        <button className="play-poll" onClick={handlePlayPause}>
+        <button
+          className="play-poll button green-button"
+          onClick={handlePlayPause}
+        >
           <img src={play} alt="Comenzar votación" /> Comenzar votación
         </button>
       ) : (
-        <button className="pause-poll" onClick={handlePlayPause}>
+        <button
+          className="pause-poll button green-button"
+          onClick={handlePlayPause}
+        >
           <img src={pause} alt="Pausar votación" /> Pausar votación
         </button>
       )}
-      <button className="stop-poll" onClick={handleRestart}>
+      <button className="stop-poll button green-button" onClick={handleRestart}>
         <img src={stop} alt="Reiniciar votación" /> Reiniciar votación
       </button>
     </div>

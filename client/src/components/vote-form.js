@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 function Form(props) {
   const { products, handleVote, paused } = props;
-
   const [formData, setFormData] = useState({
     product: '',
     comment: '',
@@ -16,6 +15,7 @@ function Form(props) {
     });
   };
 
+  // Process form submit and displys errors where applicable
   const processForm = (event) => {
     event.preventDefault();
     if (formData.product === '' || formData.comment === '' || paused) {
@@ -56,7 +56,12 @@ function Form(props) {
           ></input>
         </div>
         <div className="submit">
-          <input type="submit" value="Votar!" onClick={processForm}></input>
+          <input
+            type="submit"
+            className="button blue-button"
+            value="Votar!"
+            onClick={processForm}
+          ></input>
         </div>
         <p className={`error ${errors ? 'show' : ''}`}>
           {paused

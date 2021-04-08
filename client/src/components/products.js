@@ -7,6 +7,7 @@ function Products(props) {
   return (
     <section className="products">
       {products.map((product) => {
+        // Filter votes by product to show specific votes on each product and to calculate the percentage of votes
         const filteredVotes = votes.filter(
           (vote) => vote.product === product.id
         );

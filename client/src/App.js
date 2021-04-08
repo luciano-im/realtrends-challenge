@@ -18,6 +18,7 @@ function App() {
   const [showVoting, setShowVoting] = useState(false);
   const [paused, setPaused] = useState(false);
 
+  // Effects to receive data by websockets and set states
   useEffect(() => {
     socket.on('state', (data) => {
       const parsedData = JSON.parse(data);
@@ -40,12 +41,14 @@ function App() {
     });
   }, []);
 
+  // Show poll if there are products selected
   useEffect(() => {
-    if (products.length === 2) {
+    if (products.length > 0) {
       setShowVoting(true);
     }
   }, [products]);
 
+  // Functions to handle actions
   const handleUser = (user) => {
     setUser(user);
   };
@@ -82,6 +85,10 @@ function App() {
     });
   };
 
+  // Conditional render to show:
+  // User login if it's the first access
+  // Form/modal to search products if there's no selected products
+  // Poll components if a user is logged in and there are selected products
   const AppContent = () => {
     if (user.length > 0) {
       if (showVoting) {
@@ -98,7 +105,10 @@ function App() {
         );
       } else {
         return (
-          <button className="search-products" onClick={handleShowModal}>
+          <button
+            className="search-products button blue-button"
+            onClick={handleShowModal}
+          >
             Buscar productos!
           </button>
         );
@@ -121,9 +131,7 @@ function App() {
         setShowModal={setShowModal}
         setProducts={handleSetProducts}
       />
-      <Footer
-        sticky={user.length > 0 && products.length === 2 ? false : true}
-      />
+      <Footer sticky={user.length > 0 && products.length > 0 ? false : true} />
     </div>
   );
 }
