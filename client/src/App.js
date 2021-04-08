@@ -8,7 +8,7 @@ import Footer from './components/footer';
 import PollButtons from './components/poll-buttons';
 import logo from './logo.svg';
 
-const socket = io('http://127.0.0.1:8000');
+const socket = io(process.env.REACT_APP_SOCKET_ENDPOINT);
 
 function App() {
   const [products, setProducts] = useState([]);

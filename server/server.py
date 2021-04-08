@@ -1,9 +1,13 @@
+import os
 import json
+from dotenv import load_dotenv
 from aiohttp import web
 import socketio
 
+load_dotenv()
+
 # Create Websocket server
-sio = socketio.AsyncServer(async_mode='aiohttp', cors_allowed_origins=['*', 'localhost:3000', 'http://localhost:3000'])
+sio = socketio.AsyncServer(async_mode='aiohttp', cors_allowed_origins=[os.getenv('CORS_ALLOWED')])
 app = web.Application()
 sio.attach(app)
 
